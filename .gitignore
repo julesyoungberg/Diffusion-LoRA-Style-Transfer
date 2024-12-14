@@ -3,3 +3,4 @@ lightning_logs
 wandb
 monet
 lora_ckpt
+out_*
