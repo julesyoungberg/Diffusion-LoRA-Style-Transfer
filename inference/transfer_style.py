@@ -33,7 +33,7 @@ def main():
     im = image_transforms(im)
 
     # Inference
-    style_image = pipeline(prompt="[V]", image=im, strength=args['strength'], num_inference_steps=1000).images[0]
+    style_image = pipeline(prompt="Monet style", image=im, strength=args['strength'], num_inference_steps=100).images[0]
 
     # Save generated image
     style_image.save(args['save_path'])

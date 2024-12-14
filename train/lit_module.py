@@ -18,7 +18,7 @@ class DiffusionLoRAModule(pl.LightningModule):
         images = batch
         B = batch.size(0)
 
-        captions = ["[V]"]*B
+        captions = ["Monet style"]*B
         tokens = self.tokenizer(captions, return_tensors="pt").input_ids.to(self.device)
 
         latents = self.vae.encode(images).latent_dist.sample() * 0.18215
