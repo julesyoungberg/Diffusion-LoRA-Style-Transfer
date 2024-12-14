@@ -28,6 +28,7 @@ def main():
     parser.add_argument('--train_strength',  type=float, required=True)
     parser.add_argument('--learning_rate', type=float, default=1e-5)
     parser.add_argument('--batch_size', type=int, default=8)
+    parser.add_argument('--grad_accumulation', type=int, default=1)
     parser.add_argument('--max_epochs', type=int, default=50)
     parser.add_argument('--save_name', type=str, required=True)
     args = vars(parser.parse_args())
@@ -74,6 +75,7 @@ def main():
     trainer = pl.Trainer(
         max_epochs=args['max_epochs'],
         precision="bf16",
+        accumulate_grad_batches=args['grad_accumulation'],
         logger=logger
     )
     trainer.fit(model, train_dataloaders=monet_dl)
