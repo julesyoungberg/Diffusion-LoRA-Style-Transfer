@@ -13,24 +13,25 @@ class DiffusionLoRAModule(pl.LightningModule):
         self.text_encoder = pipeline.text_encoder
         self.train_strength = train_strength
         self.lr = lr
+
+        self.prefix = 'A Monet painting, '
     
     def training_step(self, batch, batch_idx):
-        images = batch
-        B = batch.size(0)
+        images, captions = batch
+        B = images.size(0)
 
-        captions = ["Monet style"]*B
-        tokens = self.tokenizer(captions, return_tensors="pt").input_ids.to(self.device)
+        captions = [self.prefix + c for c in captions]
+        tokens = self.tokenizer(captions, return_tensors='pt', padding=True, truncation=True).input_ids.to(self.device)
 
         latents = self.vae.encode(images).latent_dist.sample() * 0.18215
         noise = torch.randn_like(latents)
         timesteps = torch.randint(0, int(1000*self.train_strength), (B,), device=self.device, dtype=torch.long)
-
         noisy_latents = self.scheduler.add_noise(latents, noise, timesteps)
-
-        noise_pred = self.unet(noisy_latents, timesteps, encoder_hidden_states=self.text_encoder(tokens)[0])["sample"]
+        noise_pred = self.unet(noisy_latents, timesteps, encoder_hidden_states=self.text_encoder(tokens)[0])['sample']
 
         loss = torch.nn.functional.mse_loss(noise_pred, noise)
-        self.log("train_loss", loss)
+        self.log('train_loss', loss)
+
         return loss
 
     def configure_optimizers(self):

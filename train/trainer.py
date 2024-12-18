@@ -8,7 +8,6 @@ from lightning.pytorch.loggers import WandbLogger
 from data.monet import MonetDataset
 from train.lit_module import DiffusionLoRAModule
 
-
 def str2bool(x):
     if x == "true":
         return True
@@ -40,10 +39,10 @@ def main():
     lora_config = LoraConfig(
         r=args['lora_r'],
         lora_alpha=args['lora_alpha'],
-        init_lora_weights="gaussian",
-        target_modules=["to_k", "to_q", "to_v", "to_out.0", "add_k_proj", "add_v_proj"],
+        init_lora_weights='gaussian',
+        target_modules=['to_k', 'to_q', 'to_v', 'to_out.0', 'add_k_proj', 'add_v_proj'],
         lora_dropout=args['lora_dropout'],
-        bias="none"
+        bias='none'
     )
     pipeline.unet = get_peft_model(pipeline.unet, lora_config)
 
@@ -68,13 +67,13 @@ def main():
 
     # Logger
     logger = WandbLogger(
-        project="monet"
+        project='monet'
     )
 
     # Train
     trainer = pl.Trainer(
         max_epochs=args['max_epochs'],
-        precision="bf16",
+        precision='bf16',
         accumulate_grad_batches=args['grad_accumulation'],
         logger=logger
     )
