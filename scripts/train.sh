@@ -13,5 +13,5 @@ python train/trainer.py \
 --learning_rate 0.00001 \
 --batch_size 2 \
 --grad_accumulation 1 \
---max_epochs 35 \
---save_name "monet_all_cap"
+--max_epochs 1 \
+--save_name "monet_all"
