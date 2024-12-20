@@ -51,4 +51,4 @@ python ./data/caption.py
 The outcomes largely depend on two hyperparameters including `--image_cond_scale` and `--strength`. The first hyperparameter determines how strong we condition the original image on the output. If we want the output to be closer to the original image, set this value high (close to 1.0). The second hyperparameter indicates how many steps that we diffuse the latent vector, the higher this value is, the closer the output to the Monet distribution is. But if the strength is too high, the outcome will be far from the original image.
 
 ## Footnote
-This work is one of the experiment in the final project of Big Data Intelligence Fall 2024 course at Tsinghua University 🟣. We would like to express our sincere gratitude to this course !
+This work is one of the experiments in the final project of Big Data Intelligence Fall 2024 course at Tsinghua University 🟣. We would like to express our sincere gratitude to this course !
