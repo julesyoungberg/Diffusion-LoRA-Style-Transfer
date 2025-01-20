@@ -38,7 +38,7 @@ def main():
     # def dummy(images, **kwargs):
     #     return images, [False]
 
-    # pipeline.safety_checker = dummy
+    pipeline.safety_checker = None
 
     # Image Transform
     image_transforms_ip = transforms.Compose(
