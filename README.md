@@ -53,13 +53,16 @@ python train/trainer.py \
 ### Transfer style to content image
 
 ```bash
-./scripts/infer_img.sh
-```
-
-### Apply style to all content images in a folder
-
-```bash
-./scripts/infer_img.sh
+python inference/transfer_style.py \
+    --pretrained_path "/path/to/stable-diffusion-v1-5" \
+    --lora_path "/path/to/lora_ckpt/style_name" \
+    --ip_adapter_path "/path/to/IP-Adapter" \
+    --image_path "<path_to_image>" \
+    --image_cond_scale 0.3 \
+    --strength 0.5 \
+    --prompt "A <style> painting" \
+    --infer_steps 100 \
+    --save_path "styled_image.jpg"
 ```
 
 ## Hyperparameter Tips
