@@ -14,7 +14,6 @@ We first fine-tune the diffusion model using Monet paintings and their correspon
 
 <img src="https://github.com/trapoom555/Diffusion-LoRA-Style-Transfer/blob/main/assets/method_train.png?raw=true" />
 
-
 Once the model has learned the target style distribution, we use the model to denoise the diffused latent vector from N-th steps. We designed this pipeline based on the insight from [SDEdit](https://arxiv.org/pdf/2108.01073) that we can solve SDE from any intermediate timestep to modify the original image. To retain the original image details of the original image, we further add the [IP-Adapter](https://arxiv.org/pdf/2308.06721) as an image condition to the denoiser.
 
 <img src="https://github.com/trapoom555/Diffusion-LoRA-Style-Transfer/blob/main/assets/method_inference.png?raw=true" />
@@ -23,25 +22,42 @@ Once the model has learned the target style distribution, we use the model to de
 
 We use the Monet painting dataset from WikiArt as our experimental dataset. It can be downloaded [here](https://www.kaggle.com/datasets/steubk/wikiart).
 
-
 ## How to use this repository
 
 ### Monet dataset caption generation
+
 ```bash
 python ./data/caption.py
 ```
 
 ### LoRA fine-tuning
+
 ```bash
-./scripts/train.sh
+export PYTHONPATH="$PYTHONPATH:$pwd"
+
+python train/trainer.py \
+    --pretrained_path "/path/to/stable-diffusion-v1-5" \
+    --images_path "<path_to_images>" \
+    --center_crop false \
+    --lora_r 8 \
+    --lora_alpha 16 \
+    --lora_dropout 0.0 \
+    --train_strength 1.0 \
+    --learning_rate 0.00001 \
+    --batch_size 2 \
+    --grad_accumulation 1 \
+    --max_epochs 1 \
+    --save_name "<style_name>"
 ```
 
 ### Transfer style to content image
+
 ```bash
 ./scripts/infer_img.sh
 ```
 
 ### Apply style to all content images in a folder
+
 ```bash
 ./scripts/infer_img.sh
 ```
@@ -51,4 +67,5 @@ python ./data/caption.py
 The outcomes largely depend on two hyperparameters including `--image_cond_scale` and `--strength`. The first hyperparameter determines how strong we condition the original image on the output. If we want the output to be closer to the original image, set this value high (close to 1.0). The second hyperparameter indicates how many steps that we diffuse the latent vector, the higher this value is, the closer the output to the Monet distribution is. But if the strength is too high, the outcome will be far from the original image.
 
 ## Footnote
+
 This work is one of the experiments in the final project of Big Data Intelligence Fall 2024 course at Tsinghua University 🟣. We would like to express our sincere gratitude to this course !

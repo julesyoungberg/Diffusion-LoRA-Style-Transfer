@@ -4,7 +4,7 @@ export PYTHONPATH="$PYTHONPATH:$pwd"
 
 python train/trainer.py \
 --pretrained_path "/home/trapoom555/data/hf_models/stable-diffusion-v1-5" \
---monet_path "/home/trapoom555/data/monet_data/all_monet_wiki_art" \
+--images_path "/home/trapoom555/data/monet_data/all_monet_wiki_art" \
 --center_crop false \
 --lora_r 8 \
 --lora_alpha 16 \

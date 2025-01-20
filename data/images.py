@@ -5,21 +5,28 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 
 
-class MonetDataset(Dataset):
+class ImageDataset(Dataset):
     """Lazy load Monet dataset based on the provided data_path"""
+
     def __init__(self, data_path: str, center_crop: bool = False):
-        self.image_base_path = os.path.join(data_path, 'photo')
-        self.caption_base_path = os.path.join(data_path, 'caption')
+        self.image_base_path = os.path.join(data_path, "photo")
+        self.caption_base_path = os.path.join(data_path, "caption")
 
         self.image_names = os.listdir(self.image_base_path)
         self.captions = os.listdir(self.caption_base_path)
 
         self.image_transforms = transforms.Compose(
             [
-                transforms.Resize(256, interpolation=transforms.InterpolationMode.BILINEAR),
-                transforms.CenterCrop(256) if center_crop else transforms.RandomCrop(256),
+                transforms.Resize(
+                    256, interpolation=transforms.InterpolationMode.BILINEAR
+                ),
+                (
+                    transforms.CenterCrop(256)
+                    if center_crop
+                    else transforms.RandomCrop(256)
+                ),
                 transforms.ToTensor(),
-                transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
+                transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
             ]
         )
 
@@ -38,7 +45,7 @@ class MonetDataset(Dataset):
         caption_file = self.captions[idx]
         caption_path = os.path.join(self.caption_base_path, caption_file)
 
-        f = open(f'{caption_path}', 'r')
+        f = open(f"{caption_path}", "r")
         cap = f.read()
 
         return im, cap
