@@ -45,8 +45,8 @@ def main():
     )
     image_transforms = transforms.Compose(
         [
-            transforms.Resize(256, interpolation=transforms.InterpolationMode.BILINEAR),
-            transforms.CenterCrop(256),
+            transforms.Resize(1024, interpolation=transforms.InterpolationMode.BILINEAR),
+            transforms.CenterCrop(1024),
             transforms.ToTensor(),
             transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
         ]
