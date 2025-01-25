@@ -11,9 +11,9 @@ class DiffusionLoRAModule(pl.LightningModule):
         self.tokenizer = pipeline.tokenizer
         self.scheduler = pipeline.scheduler
         self.text_encoder = pipeline.text_encoder
-        train_strength: float = 0.7,
-        height: int = 1024,  # Increased resolution
-        width: int = 1024    # Increased resolution
+        self.train_strength: float = 0.7,
+        self.height: int = 1024,  # Increased resolution
+        self.width: int = 1024    # Increased resolution
         self.lr = lr
 
         self.prefix = 'A rogerdean painting, '
