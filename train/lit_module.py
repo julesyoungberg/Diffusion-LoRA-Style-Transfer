@@ -11,7 +11,9 @@ class DiffusionLoRAModule(pl.LightningModule):
         self.tokenizer = pipeline.tokenizer
         self.scheduler = pipeline.scheduler
         self.text_encoder = pipeline.text_encoder
-        self.train_strength = train_strength
+        train_strength: float = 0.7,
+        height: int = 1024,  # Increased resolution
+        width: int = 1024    # Increased resolution
         self.lr = lr
 
         self.prefix = '(Roger Dean style masterpiece:1.4), otherworldly landscape with floating mountains, (organic curved rock formations:1.3), (surreal color palette:1.2), dramatic perspective, ethereal atmosphere'
