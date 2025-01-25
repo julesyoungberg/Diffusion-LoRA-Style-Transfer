@@ -16,7 +16,7 @@ class DiffusionLoRAModule(pl.LightningModule):
         width: int = 1024    # Increased resolution
         self.lr = lr
 
-        self.prefix = 'A rogerdeen painting, '
+        self.prefix = 'A rogerdean painting, '
     
     def training_step(self, batch, batch_idx):
         images, captions = batch
