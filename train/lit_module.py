@@ -16,7 +16,7 @@ class DiffusionLoRAModule(pl.LightningModule):
         width: int = 1024    # Increased resolution
         self.lr = lr
 
-        self.prefix = '(Roger Dean style masterpiece:1.4), otherworldly landscape with floating mountains, (organic curved rock formations:1.3), (surreal color palette:1.2), dramatic perspective, ethereal atmosphere'
+        self.prefix = 'A rogerdeen painting, '
     
     def training_step(self, batch, batch_idx):
         images, captions = batch
