@@ -14,7 +14,7 @@ class DiffusionLoRAModule(pl.LightningModule):
         self.train_strength = train_strength
         self.lr = lr
 
-        self.prefix = ''
+        self.prefix = '(Roger Dean style masterpiece:1.4), otherworldly landscape with floating mountains, (organic curved rock formations:1.3), (surreal color palette:1.2), dramatic perspective, ethereal atmosphere'
     
     def training_step(self, batch, batch_idx):
         images, captions = batch
