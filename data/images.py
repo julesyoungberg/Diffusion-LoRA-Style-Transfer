@@ -18,7 +18,7 @@ class ImageDataset(Dataset):
         self.image_transforms = transforms.Compose(
             [
                 transforms.Resize(
-                    256, interpolation=transforms.InterpolationMode.BILINEAR
+                    1024, interpolation=transforms.InterpolationMode.BILINEAR
                 ),
                 (
                     transforms.CenterCrop(256)
